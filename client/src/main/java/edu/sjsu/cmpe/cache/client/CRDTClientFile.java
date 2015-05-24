@@ -45,14 +45,14 @@ public class CRDTClientFile {
 				}
 			}
 		} catch (Exception e) {
-			System.out.println("Error waiting");
+			System.out.println("Error during waiting");
 		}
 		
 		//repir
 		for (String node : mapResult.keySet()) {
 			result = mapResult.get(node);
 			if (!result.equals(outputString)) {
-				System.out.println("inread repair for loop.Value mismatch");
+				System.out.println("in read repair");
 				System.out.println("Read Repair::: "+node + "value" + mapResult.get(node));
 				DistributedCacheService cache = new DistributedCacheService(node);
 				System.out.println("Key and returning values are" +keyValue+"::"+outputString);
@@ -78,16 +78,16 @@ public class CRDTClientFile {
 			System.out.println("obtained response value iss:::"+statusResp);
 			if (statusResp == 200) {
 				tracker++;
-				System.out.println("tracker value is increamented.updated tracker value is::"+tracker);
+				System.out.println("incremented tracker value is:"+tracker);
 				delete.add(node1);
-				System.out.println("code obtained is 200 and node is deleted");
+				System.out.println("node ignored as its returning 200");
 			}
 		}
 		if (tracker < 2) {
-			System.out.println("my tracking values are lesser than 2 so im inside the loop");
+			System.out.println("SUCCESS COUNTER LESS THAN 2");
 			for (CacheServiceInterface nodeDel : delete) {
 				nodeDel.delete(keyValue);
-				System.out.println("Yup the cache values are deleted");
+				System.out.println("Deleted cached values");
 			}
 		}
 
